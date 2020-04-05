@@ -20,13 +20,13 @@ object Ana: TAna
     Left = 265
     Top = 0
     Width = 6
-    Height = 590
+    Height = 588
   end
   object Panel2: TPanel
     Left = 0
     Top = 0
     Width = 265
-    Height = 590
+    Height = 588
     Align = alLeft
     BevelOuter = bvNone
     Color = clBtnShadow
@@ -36,7 +36,7 @@ object Ana: TAna
       Left = 0
       Top = 41
       Width = 265
-      Height = 549
+      Height = 547
       Align = alClient
       HotTrack = True
       Images = x16
@@ -74,9 +74,9 @@ object Ana: TAna
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 590
+    Top = 588
     Width = 1180
-    Height = 19
+    Height = 21
     Panels = <>
   end
   object x16: TImageList

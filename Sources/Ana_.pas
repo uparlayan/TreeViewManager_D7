@@ -85,35 +85,35 @@ begin
   TV.Duzenle;
   TV.IlkeGit;
 
-  MN.Icerik ( 'Fihrist                       {image:1}          '#1
-            + ' Adres Defteri                {image:1,tag:101}  '#1
-            + ' Rehber                       {image:2,tag:102}  '#1
-            + 'Müþteri Ýliþkileri Yönetini   {}                 '#1
-            + ' Avukatlar                    {image:3,tag:201}  '#1
-            + ' Müvekkiller                  {image:4,tag:202}  '#1
-            + ' Vekaletnameler               {image:5,tag:203}  '#1
-            + 'Muhasebe                      {}                 '#1
-            + ' Banka Hesaplarý              {image:6,tag:301}  '#1
-            + ' Faturalar                    {}                 '#1
-            + '  Alýþ Faturalarý             {image:7,tag:302}  '#1
-            + '  Satýþ Faturalarý            {image:8,tag:303}  '#1
-            + ' Serbest Meslek Makbuzlarý    {}                 '#1
-            + '  Alýþ SMM                    {image:9,tag:304}  '#1
-            + '  Satýþ SMM                   {image:10,tag:305} '#1
-            + ' Günlük Banka Defteri         {image:11,tag:306} '#1
-            + ' Günlük Kasa Defteri          {image:12,tag:307} '#1
-            + ' Hesap Planý                  {image:13,tag:308} '#1
-            + ' Yevmiye Defteri              {image:14,tag:309} '#1
-            + 'Ürün ve Hizmetler             {}                 '#1
-            + 'Lojistik                      {}                 '#1
-            + 'Ýþletme                       {}                 '#1
-            + 'Ýnsan Kaynaklarý              {}                 '#1
-            + 'Döküman Yönetimi              {}                 '#1
-            + 'Proje ve Süreçler             {}                 '#1
-            + 'Tanýmlamalar                  {}                 '#1
-            + 'Rapor ve Özetler              {}                 '#1
-            + 'Sistem Yönetimi               {}                 '#1
-            + 'Yapýsal Nesneler              {}                 '#1
+  MN.Icerik ( 'Fihrist                    {image:1}         '#1
+            + ' Adres Defteri             {image:1,tag:101} '#1
+            + ' Rehber                    {image:2,tag:102} '#1
+            + 'Müþteri Ýliþkileri Yönetini{}                '#1
+            + ' Avukatlar                 {image:3,tag:201} '#1
+            + ' Müvekkiller               {image:4,tag:202} '#1
+            + ' Vekaletnameler            {image:5,tag:203} '#1
+            + 'Muhasebe                   {}                '#1
+            + ' Banka Hesaplarý           {image:6,tag:301} '#1
+            + ' Faturalar                 {}                '#1
+            + '  Alýþ Faturalarý          {image:7,tag:302} '#1
+            + '  Satýþ Faturalarý         {image:8,tag:303} '#1
+            + ' Serbest Meslek Makbuzlarý {}                '#1
+            + '  Alýþ SMM                 {image:9,tag:304} '#1
+            + '  Satýþ SMM                {image:10,tag:305}'#1
+            + ' Günlük Banka Defteri      {image:11,tag:306}'#1
+            + ' Günlük Kasa Defteri       {image:12,tag:307}'#1
+            + ' Hesap Planý               {image:13,tag:308}'#1
+            + ' Yevmiye Defteri           {image:14,tag:309}'#1
+            + 'Ürün ve Hizmetler          {}                '#1
+            + 'Lojistik                   {}                '#1
+            + 'Ýþletme                    {}                '#1
+            + 'Ýnsan Kaynaklarý           {}                '#1
+            + 'Döküman Yönetimi           {}                '#1
+            + 'Proje ve Süreçler          {}                '#1
+            + 'Tanýmlamalar               {}                '#1
+            + 'Rapor ve Özetler           {}                '#1
+            + 'Sistem Yönetimi            {}                '#1
+            + 'Yapýsal Nesneler           {}                '#1
             );
   MN.Kurulum(Test);
   MN.Duzenle;
@@ -121,12 +121,13 @@ end;
 
 procedure TAna.Test(Sender: TObject);
 begin
-  Caption := 'Clicked > ' + TMenuItem(Sender).Caption + ' <' + IntToStr(TMenuItem(Sender).Tag) + '>' ;
+  Caption := 'Clicked By Main Menu > ' + TMenuItem(Sender).Caption + ' <' + IntToStr(TMenuItem(Sender).Tag) + '>' ;
 end;
 
 procedure TAna.TVChange(Sender: TObject; Node: TTreeNode);
 begin
-  Caption := IntToStr(Node.StateIndex);
+  Caption := 'Clicked By Tree View > ' + Node.Text + ' <' + IntToStr(Node.StateIndex) + '>' ;
+  //Caption := IntToStr(Node.StateIndex);
 end;
 
 procedure TAna.TVKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
