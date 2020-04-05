@@ -16,6 +16,7 @@ type
       FAtomikAyrac: Char;
       FMenu       : TStringList;
       FAtomik     : TStringList;
+      FOnClick    : TNotifyEvent;
     protected
       function New(aCaption: String; aTag: Integer; aImageIndex: Integer = -1): TMenuItem;
       function Parse(aString: String; aSagdakini: Boolean = False): String;
@@ -29,7 +30,7 @@ type
       destructor Destroy; override;
       procedure Icerik(aString: String);
       procedure Duzenle;
-      procedure Kurulum(aAyrac: Char = ','; aAyracBasi: Char = '{'; aAyracSonu: Char = '}'; aAtomikAyrac: Char = ':');
+      procedure Kurulum(aOnClick: TNotifyEvent; aAyrac: Char = ','; aAyracBasi: Char = '{'; aAyracSonu: Char = '}'; aAtomikAyrac: Char = ':');
       property Ayrac      : Char read FAyrac        write FAyrac;
       property AyracBasi  : Char read FAyracBasi    write FAyracBasi;
       property AyracSonu  : Char read FAyracSonu    write FAyracSonu;
@@ -48,7 +49,7 @@ uses
 procedure TMainMenu.Duzenle;
 var
   Satir: String;
-  I, L: Integer;
+  I, L, T, P: Integer;
   LV0, LV1, LV2, LV3, LV4, LV5, LV6, LV7, LV8, LV9: TMenuItem;
 begin
   Items.Clear;
@@ -66,29 +67,31 @@ begin
       Satir := FMenu.Strings[I];
       if (Trim(Satir) <> '') then begin
           L := GetLevel(Satir);
+          T := StrToIntDef(GetValue('tag', GetProps(Satir)), 0);
+          P := StrToIntDef(GetValue('image', GetProps(Satir)), -1);
           if (L = 0) then begin
-              LV0 := New( GetBaslik(Satir), 0 );
+              LV0 := New( GetBaslik(Satir), T, P);
               Items.Add(LV0);
           end else
           if (L = 1) then begin
-              LV1 := New( GetBaslik(Satir), 0);
+              LV1 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption).Add(LV1);
           end else
           if (L = 2) then begin
-              LV2 := New( GetBaslik(Satir), 0);
+              LV2 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Add(LV2);
           end else
           if (L = 3) then begin
-              LV3 := New( GetBaslik(Satir), 0);
+              LV3 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
                    .Add(LV3);
           end else
           if (L = 4) then begin
-              LV4 := New( GetBaslik(Satir), 0);
+              LV4 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -96,7 +99,7 @@ begin
                    .Add(LV4);
           end else
           if (L = 5) then begin
-              LV5 := New( GetBaslik(Satir), 0);
+              LV5 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -105,7 +108,7 @@ begin
                    .Add(LV5);
           end else
           if (L = 6) then begin
-              LV6 := New( GetBaslik(Satir), 0);
+              LV6 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -115,7 +118,7 @@ begin
                    .Add(LV6);
           end else
           if (L = 7) then begin
-              LV7 := New( GetBaslik(Satir), 0);
+              LV7 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -126,7 +129,7 @@ begin
                    .Add(LV7);
           end else
           if (L = 8) then begin
-              LV8 := New( GetBaslik(Satir), 0);
+              LV8 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -138,7 +141,7 @@ begin
                    .Add(LV8);
           end else
           if (L = 9) then begin
-              LV9 := New( GetBaslik(Satir), 0);
+              LV9 := New( GetBaslik(Satir), T, P);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -188,12 +191,13 @@ begin
   FMenu.Text  := StringReplace( aString, #1, #13#10, [rfReplaceAll, rfIgnoreCase]);
 end;
 
-procedure TMainMenu.Kurulum(aAyrac, aAyracBasi, aAyracSonu, aAtomikAyrac: Char);
+procedure TMainMenu.Kurulum(aOnClick: TNotifyEvent; aAyrac, aAyracBasi, aAyracSonu, aAtomikAyrac: Char);
 begin
   FAyrac      := aAyrac;
   FAyracBasi  := aAyracBasi;
   FAyracSonu  := aAyracSonu;
   FAtomikAyrac:= aAtomikAyrac;
+  FOnClick    := aOnClick;
 end;
 
 function TMainMenu.Parse(aString: String; aSagdakini: Boolean): String;
@@ -215,7 +219,8 @@ begin
   Result.Caption := aCaption;
   Result.Tag := aTag;
   Result.ImageIndex := aImageIndex;
-  Result.OnClick := ItemClick;
+  if aTag > 0 then
+  Result.OnClick := FOnClick;
 end;
 
 function TMainMenu.GetProps(aString: String): String;
@@ -235,7 +240,7 @@ begin
   Result := aString;
   X := pos(FAyracBasi, aString);
   Y := pos(FAyracSonu, aString);
-  if (Y > X) and (X > 0) then Result := Trim(Copy(aString, 1, X - 1));
+  if (Y > X) and (X > 0) then Result := Trim(Copy(aString, 1, X - 1)); // {'nin sol tarafýný alýr.
 end;
 
 function TMainMenu.GetValue(aItem, aString: String): String;
@@ -245,7 +250,7 @@ var
 begin
   Result := '';
   if (aString <> '') then begin
-      FAtomik.Delimiter := FAyrac;
+      FAtomik.Delimiter     := FAyrac;
       FAtomik.DelimitedText := StringReplace(aString, #32, '', [rfReplaceAll, rfIgnoreCase]);
       for I := 0 to FAtomik.Count-1 do begin
           R := Trim(FAtomik.Strings[I]);
@@ -260,7 +265,7 @@ end;
 
 procedure TMainMenu.ItemClick(Sender: TObject);
 begin
-  ShowMessage(TMenuItem(Sender).Caption);
+  ShowMessage(TMenuItem(Sender).Caption + ' > ' + IntToStr( TMenuItem(Sender).Tag ));
 end;
 
 end.
