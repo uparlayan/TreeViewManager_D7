@@ -18,7 +18,7 @@ uses
   , ExtCtrls
   , Menus
   , Class_Interposer_TreeView_
-  , Class_Interposer_MainMenu_
+  , Class_Interposer_MainMenu_, System.ImageList
   ;
 
 type
@@ -32,9 +32,10 @@ type
     Button1: TButton;
     StatusBar1: TStatusBar;
     MN: TMainMenu;
+    Dosya1: TMenuItem;
+    osya1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure TVChange(Sender: TObject; Node: TTreeNode);
-    procedure TVKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Test(Sender: TObject);
   private
     { Private declarations }
@@ -85,12 +86,13 @@ begin
   TV.Duzenle;
   TV.IlkeGit;
 
-  MN.Icerik ( 'Fihrist                    {image:1}         '#1
-            + ' Adres Defteri             {image:1,tag:101} '#1
-            + ' Rehber                    {image:2,tag:102} '#1
+  MN.Sablon ( 'Fihrist                    {tag:100,default:true,shortcut:ctrl+n}                '#1
+            + ' Adres Defteri             {image:-1,tag:101,checked:true,default:true,hint:naber} '#1
+            + ' -                         {}                '#1
+            + ' Rehber                    {image:-1,tag:102,checked:true} '#1
             + 'Müþteri Ýliþkileri Yönetini{}                '#1
             + ' Avukatlar                 {image:3,tag:201} '#1
-            + ' Müvekkiller               {image:4,tag:202} '#1
+            + ' Müvekkiller               {image:4,tag:202,checked:true,default:true} '#1
             + ' Vekaletnameler            {image:5,tag:203} '#1
             + 'Muhasebe                   {}                '#1
             + ' Banka Hesaplarý           {image:6,tag:301} '#1
@@ -115,8 +117,8 @@ begin
             + 'Sistem Yönetimi            {}                '#1
             + 'Yapýsal Nesneler           {}                '#1
             );
-  MN.Kurulum(Test);
-  MN.Duzenle;
+  MN.Ayarla(Test);
+  MN.Yerlestir;
 end;
 
 procedure TAna.Test(Sender: TObject);
@@ -127,12 +129,6 @@ end;
 procedure TAna.TVChange(Sender: TObject; Node: TTreeNode);
 begin
   Caption := 'Clicked By Tree View > ' + Node.Text + ' <' + IntToStr(Node.StateIndex) + '>' ;
-  //Caption := IntToStr(Node.StateIndex);
-end;
-
-procedure TAna.TVKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-  Caption := inttostr(Key);
 end;
 
 end.

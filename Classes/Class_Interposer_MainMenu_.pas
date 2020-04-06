@@ -10,31 +10,137 @@ uses
 type
   TMainMenu = class(Menus.TMainMenu)
     private
-      FAyrac      : Char;
-      FAyracBasi  : Char;
-      FAyracSonu  : Char;
-      FAtomikAyrac: Char;
-      FMenu       : TStringList;
-      FAtomik     : TStringList;
-      FOnClick    : TNotifyEvent;
+      FAyrac        : Char;
+      FAyracBasi    : Char;
+      FAyracSonu    : Char;
+      FElemanAyrac  : Char;
+      FIcerik       : TStringList;
+      FEleman       : TStringList;
+      FOnClick      : TNotifyEvent;
     protected
-      function New(aCaption: String; aTag: Integer; aImageIndex: Integer = -1): TMenuItem;
-      function Parse(aString: String; aSagdakini: Boolean = False): String;
+      /// <summary>
+      ///   TR: Yeni bir Menü elemaný oluþturur.
+      /// </summary>
+      function New(aCaption: String; aTag: Integer; aImageIndex: Integer = -1; aShortCut: String = ''; aDefault: Boolean = False; aChecked: Boolean = False): TMenuItem;
+      /// <summary>
+      ///   TR: GetValue içinde kullanýlýr. Atomik Ayracýn saðýndakini veya solundakini bulmaya yarar.
+      /// </summary>
+      function Ayristir(aString: String; aSagdakini: Boolean = False): String;
+      /// <summary>
+      ///   TR: Belirtilen satýrdaki Ayraç Baþý ve Ayraç sonu karakterlerinin arasýnda kalan kýsmý verir.
+      /// </summary>
       function GetProps(aString: String): String;
+      /// <summary>
+      ///   TR: Belirtilen satýrýn Ayraç baþýna kadar olan kýsmýný Trimleyerek verir.
+      /// </summary>
       function GetBaslik(aString: string): String;
+      /// <summary>
+      ///   TR: GetProps ile alýnan deðerleri önce bir listeye çevirir, sonra o listenin içinden istenen baþlýktaki deðeri çýktý olarak verir.
+      /// </summary>
       function GetValue(aItem, aString: String): String;
+      /// <summary>
+      ///   TR: Belirtilen satýrdaki Soldan girinti miktarýný verir.
+      /// </summary>
       function GetLevel(aString: String): Integer;
-      procedure ItemClick(Sender: TObject);
     public
+      /// <param name="aOwner">
+      ///   TComponent nesnesinin torunlarýndan herhangi birisi fakat kastedilen bir TForm nesnesidir.
+      /// </param>
       constructor Create(aOwner: TComponent); override;
       destructor Destroy; override;
-      procedure Icerik(aString: String);
-      procedure Duzenle;
-      procedure Kurulum(aOnClick: TNotifyEvent; aAyrac: Char = ','; aAyracBasi: Char = '{'; aAyracSonu: Char = '}'; aAtomikAyrac: Char = ':');
-      property Ayrac      : Char read FAyrac        write FAyrac;
+      /// <summary>
+      ///   <para>
+      ///     Menünün içeriðini, elemanlarýný, kýsýtlanmýþ bazý özelliklerini tek bir string ile belirtmenizi saðlar.
+      ///     Her bir satýr tek bir menü öðesini temsil eder. Satýrlar "#1" karakteri ile birbirinden ayrýlýr. (Veya
+      ///     yazmaktan zevk alýyorsanýz her satýrýn sonuna #13#10 iþaretlerini de koyabilirsiniz)
+      ///   </para>
+      ///   <para>
+      ///     Parantez içine alýnmýþ olan kýsým, o satýrdaki menü öðesinin kendine has özelliklerini ifade eder.
+      ///     Bunlar kýsaca þöyledir;
+      ///   </para>
+      ///   <list type="bullet">
+      ///     <item>
+      ///       <b>Shortcut</b>: (String) Klavyedeki bir tuþ kombinasyonunu menü öðesine atamanýzý saðlar.
+      ///       Mesela"Ctrl+N" gibi...<br/><br/><b>NOT</b>: "Tag" deðeri olmayan öðelerin ShortCut sahibi olmasýnýn bir anlamý olmadýðýndan görmezden gelinir.
+      ///     </item>
+      ///     <item>
+      ///       <b>Checked</b>: (Boolean) True ise menü öðesinin baþýna bir iþaret ekler.
+      ///     </item>
+      ///     <item>
+      ///       <b>Default</b>: (Boolean) True ise menü öðesinin varsayýlan olduðunu vurgulamak için metni Kalýn
+      ///       yapar. UNUTMAYIN, her alt menüde en FAZLA 1 tane default öðe olmalýdýr.
+      ///     </item>
+      ///     <item>
+      ///       <b>tag</b>: (Integer) menü öðesine sayýsal bir deðer tanýmlamanýzý saðlar. Bu, menü öðesine bir
+      ///       referans deðer tanýmlayabilmeniz açýsýndan önemlidir.
+      ///     </item>
+      ///     <item>
+      ///       <b>Image</b>: (Integer) Menünüz bir ImageList nesnesine baðlantý içeriyor ise, o ImageList
+      ///       nesnesindeki resimciklere baðlantý vermenizi saðlar.
+      ///     </item>
+      ///   </list>
+      ///   <para>
+      ///     Parantezli bölgenin dýþýnda VE solundaki kýsým menü öðesinin baþlýðýný ifade eder. Bu kýsmýn solunda
+      ///     býrakýlan boþluklar ise bir önceki satýrda belirtilen menü öðesinin bir alt elemaný mý yoksa sonraki
+      ///     koþmþusu mu olduðunu belirtir.
+      ///   </para>
+      ///   <para>
+      ///     Aþaðýda verilen örnek, bir Pull Down menünün bu sistemde (varsayýlan parametrelerle birlikte) nasýl
+      ///     tanýmlanmasý gerektiðini gösterir.
+      ///   </para>
+      /// </summary>
+      /// <remarks>
+      ///   <b>UYARI</b>: Parantezli kýsým bir JSON verisi deðildir. Varsayýlan ayraç parametreleri ile öyleymiþ gibi zannedebilirsiniz fakat bu kýsým bir JSON verisi olarak yorumlanmaz.
+      /// </remarks>
+      /// <param name="aString">
+      ///   Menü içeriðinin yazýldýðý parametredir.
+      /// </param>
+      /// <example>
+      ///   <pre lang="Pascal">with MainMenu1 do begin
+      ///   Sablon( 'Dosya     {default:true}                    '#1 // Ana seviye
+      ///         + ' Yeni     {image:1,tag:101}                 '#1 // 2. seviye
+      ///         + ' Aç       {image:2,tag:102,shortcut:Ctrl+O} '#1 // 2. seviye
+      ///         + ' Kaydet   {image:3,tag:103,checked:true}    '#1 // 2. seviye
+      ///         + ' -        {}                                '#1 // 2. seviye ve grup ayracý
+      ///         + ' Çýkýþ    {image:4,tag:104}                 '#1 // 2. seviye
+      ///         + 'Düzenle   {}                                '#1 // Ana seviye
+      ///         + ' Kes      {image:5,tag:201}                 '#1 // 2. seviye
+      ///         + ' Kopyala  {image:6,tag:202}                 '#1 // 2. seviye
+      ///         + ' Yapýþtýr {image:7,tag:203}                 '#1 // 2. seviye
+      ///         + 'Yardým    {}                                '#1 // Ana seviye
+      ///         + ' Hakkýnda {image:8,tag:301}                 '#1 // 2. seviye
+      ///         + ' -        {}                                '#1 // 2. seviye ve grup ayracý
+      ///         + ' Konular  {image:8,tag:301}                 '#1 // 2. seviye
+      ///         );
+      ///   Ayarla(Test);
+      ///   Yerlestir;
+      /// end;</pre>
+      /// </example>
+      procedure Sablon(aString: String);
+      /// <summary>
+      ///   Þablonu, TMainMenu nesnesine uygular...
+      /// </summary>
+      procedure Yerlestir;
+      /// <summary>
+      ///   Ön tanýmlý diðer parametrelerin tanýmlamamýzý saðlar.
+      /// </summary>
+      procedure Ayarla(aOnClick: TNotifyEvent; aAyrac: Char = ','; aAyracBasi: Char = '{'; aAyracSonu: Char = '}'; aElemanAyrac: Char = ':');
+      /// <summary>
+      ///   Parantez baþlangýcýný temsil eden baþlangýç ayracýdýr. Yani, bu bir { veya ( ya da [ gibi bir iþaret olabilir.
+      /// </summary>
       property AyracBasi  : Char read FAyracBasi    write FAyracBasi;
+      /// <summary>
+      ///   Parantez sonunu / bittiði yeri temsil eden bitiþ ayracýdýr. Yani, bu bir } veya ) ya da ] gibi bir iþaret olabilir.
+      /// </summary>
       property AyracSonu  : Char read FAyracSonu    write FAyracSonu;
-      property AtomikAyrac: Char read FAtomikAyrac  write FAtomikAyrac;
+      /// <summary>
+      ///   Parantez içindeki elemanlarýn anahtar ve deðer ikilisini bir arada tutacak þekilde diðerlerinden ayýracak olan ayracý temsil eder. Yani bu bir , veya ; gibi bir iþaret olabilir...
+      /// </summary>
+      property Ayrac      : Char read FAyrac        write FAyrac;
+      /// <summary>
+      ///   Elemanlarýn tanýmlamýþ olduðu Anahtar ve Deðer ikilisindeki eþleþmeyi temsil eder. Bu ayracýn solundaki kýsým Ahantarý, sað tarafýndaki kýsým ise Veriyi, deðeri ifade eder. Dolayýsýyla bu bir : veya = gibi bir iþaret olabilir...
+      /// </summary>
+      property ElemanAyrac: Char read FElemanAyrac  write FElemanAyrac;
   end;
 
 implementation
@@ -46,10 +152,13 @@ uses
 
 { TMainMenu }
 
-procedure TMainMenu.Duzenle;
+procedure TMainMenu.Yerlestir;
 var
   Satir: String;
-  I, L, T, P: Integer;
+  I, L: Integer;
+  _Tag, _Image: Integer;
+  _ShortCut, _Hint: String;
+  _Checked, _Default: Boolean;
   LV0, LV1, LV2, LV3, LV4, LV5, LV6, LV7, LV8, LV9: TMenuItem;
 begin
   Items.Clear;
@@ -63,35 +172,39 @@ begin
   LV7:= nil;
   LV8:= nil;
 //  LV9:= nil;
-  for I := 0 to FMenu.Count - 1 do begin
-      Satir := FMenu.Strings[I];
+  for I := 0 to FIcerik.Count - 1 do begin
+      Satir := FIcerik.Strings[I];
       if (Trim(Satir) <> '') then begin
           L := GetLevel(Satir);
-          T := StrToIntDef(GetValue('tag', GetProps(Satir)), 0);
-          P := StrToIntDef(GetValue('image', GetProps(Satir)), -1);
+          _Tag      := StrToIntDef(GetValue('tag', GetProps(Satir)), 0);
+          _Image    := StrToIntDef(GetValue('image', GetProps(Satir)), -1);
+          _ShortCut := GetValue('shortcut', GetProps(Satir));
+          _Hint     := GetValue('hint', GetProps(Satir));
+          _Checked  := (GetValue('checked', GetProps(Satir)) = 'true' );
+          _Default  := (GetValue('default', GetProps(Satir)) = 'true' );
           if (L = 0) then begin
-              LV0 := New( GetBaslik(Satir), T, P);
+              LV0 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Add(LV0);
           end else
           if (L = 1) then begin
-              LV1 := New( GetBaslik(Satir), T, P);
+              LV1 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption).Add(LV1);
           end else
           if (L = 2) then begin
-              LV2 := New( GetBaslik(Satir), T, P);
+              LV2 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Add(LV2);
           end else
           if (L = 3) then begin
-              LV3 := New( GetBaslik(Satir), T, P);
+              LV3 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
                    .Add(LV3);
           end else
           if (L = 4) then begin
-              LV4 := New( GetBaslik(Satir), T, P);
+              LV4 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -99,7 +212,7 @@ begin
                    .Add(LV4);
           end else
           if (L = 5) then begin
-              LV5 := New( GetBaslik(Satir), T, P);
+              LV5 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -108,7 +221,7 @@ begin
                    .Add(LV5);
           end else
           if (L = 6) then begin
-              LV6 := New( GetBaslik(Satir), T, P);
+              LV6 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -118,7 +231,7 @@ begin
                    .Add(LV6);
           end else
           if (L = 7) then begin
-              LV7 := New( GetBaslik(Satir), T, P);
+              LV7 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -129,7 +242,7 @@ begin
                    .Add(LV7);
           end else
           if (L = 8) then begin
-              LV8 := New( GetBaslik(Satir), T, P);
+              LV8 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -141,7 +254,7 @@ begin
                    .Add(LV8);
           end else
           if (L = 9) then begin
-              LV9 := New( GetBaslik(Satir), T, P);
+              LV9 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Find(LV0.Caption)
                    .Find(LV1.Caption)
                    .Find(LV2.Caption)
@@ -164,15 +277,14 @@ end;
 constructor TMainMenu.Create(aOwner: TComponent);
 begin
   inherited;
-  FMenu   := TStringList.Create;
-  FAtomik := TStringList.Create;
-
+  FIcerik   := TStringList.Create;
+  FEleman := TStringList.Create;
 end;
 
 destructor TMainMenu.Destroy;
 begin
-  FreeAndNil(FAtomik);
-  FreeAndNil(FMenu);
+  FreeAndNil(FEleman);
+  FreeAndNil(FIcerik);
   inherited;
 end;
 
@@ -186,26 +298,26 @@ begin
       if (aString[I] > #32) then exit;
 end;
 
-procedure TMainMenu.Icerik(aString: String);
+procedure TMainMenu.Sablon(aString: String);
 begin
-  FMenu.Text  := StringReplace( aString, #1, #13#10, [rfReplaceAll, rfIgnoreCase]);
+  FIcerik.Text  := StringReplace( aString, #1, #13#10, [rfReplaceAll, rfIgnoreCase]);
 end;
 
-procedure TMainMenu.Kurulum(aOnClick: TNotifyEvent; aAyrac, aAyracBasi, aAyracSonu, aAtomikAyrac: Char);
+procedure TMainMenu.Ayarla(aOnClick: TNotifyEvent; aAyrac, aAyracBasi, aAyracSonu, aElemanAyrac: Char);
 begin
   FAyrac      := aAyrac;
   FAyracBasi  := aAyracBasi;
   FAyracSonu  := aAyracSonu;
-  FAtomikAyrac:= aAtomikAyrac;
+  FElemanAyrac:= aElemanAyrac;
   FOnClick    := aOnClick;
 end;
 
-function TMainMenu.Parse(aString: String; aSagdakini: Boolean): String;
+function TMainMenu.Ayristir(aString: String; aSagdakini: Boolean): String;
 var
   X: Integer;
 begin
   Result := '';
-  X := pos(FAtomikAyrac, aString);
+  X := pos(FElemanAyrac, aString);
   if (X > 0) then begin
       if (aSagdakini = True)
       then Result := Trim(copy(aString, X + 1, Length(aString) - X))
@@ -213,12 +325,15 @@ begin
   end;
 end;
 
-function TMainMenu.New(aCaption: String; aTag, aImageIndex: Integer): TMenuItem;
+function TMainMenu.New(aCaption: String; aTag, aImageIndex: Integer; aShortCut: String; aDefault, aChecked: Boolean): TMenuItem;
 begin
   Result := TMenuItem.Create(Self);
   Result.Caption := aCaption;
   Result.Tag := aTag;
   Result.ImageIndex := aImageIndex;
+  Result.Default := aDefault;
+  Result.Checked := aChecked;
+  Result.ShortCut := TextToShortCut(aShortCut);
   if aTag > 0 then
   Result.OnClick := FOnClick;
 end;
@@ -250,22 +365,17 @@ var
 begin
   Result := '';
   if (aString <> '') then begin
-      FAtomik.Delimiter     := FAyrac;
-      FAtomik.DelimitedText := StringReplace(aString, #32, '', [rfReplaceAll, rfIgnoreCase]);
-      for I := 0 to FAtomik.Count-1 do begin
-          R := Trim(FAtomik.Strings[I]);
-          S := Parse(R);
+      FEleman.Delimiter     := FAyrac;
+      FEleman.DelimitedText := StringReplace(aString, #32, '', [rfReplaceAll, rfIgnoreCase]);
+      for I := 0 to FEleman.Count-1 do begin
+          R := Trim(FEleman.Strings[I]);
+          S := Ayristir(R);
           if (S = aItem) then begin
-              Result := Parse(R, True);
+              Result := Ayristir(R, True);
               Exit;
           end;
       end;
   end;
-end;
-
-procedure TMainMenu.ItemClick(Sender: TObject);
-begin
-  ShowMessage(TMenuItem(Sender).Caption + ' > ' + IntToStr( TMenuItem(Sender).Tag ));
 end;
 
 end.
