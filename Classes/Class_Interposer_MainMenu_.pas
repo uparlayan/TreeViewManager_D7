@@ -157,7 +157,7 @@ var
   Satir: String;
   I, L: Integer;
   _Tag, _Image: Integer;
-  _ShortCut, _Hint: String;
+  _ShortCut: String;
   _Checked, _Default: Boolean;
   LV0, LV1, LV2, LV3, LV4, LV5, LV6, LV7, LV8, LV9: TMenuItem;
 begin
@@ -179,7 +179,6 @@ begin
           _Tag      := StrToIntDef(GetValue('tag', GetProps(Satir)), 0);
           _Image    := StrToIntDef(GetValue('image', GetProps(Satir)), -1);
           _ShortCut := GetValue('shortcut', GetProps(Satir));
-          _Hint     := GetValue('hint', GetProps(Satir));
           _Checked  := (GetValue('checked', GetProps(Satir)) = 'true' );
           _Default  := (GetValue('default', GetProps(Satir)) = 'true' );
           if (L = 0) then begin

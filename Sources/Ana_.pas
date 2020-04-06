@@ -18,7 +18,7 @@ uses
   , ExtCtrls
   , Menus
   , Class_Interposer_TreeView_
-  , Class_Interposer_MainMenu_, System.ImageList
+  , Class_Interposer_MainMenu_
   ;
 
 type
@@ -32,8 +32,6 @@ type
     Button1: TButton;
     StatusBar1: TStatusBar;
     MN: TMainMenu;
-    Dosya1: TMenuItem;
-    osya1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure TVChange(Sender: TObject; Node: TTreeNode);
     procedure Test(Sender: TObject);
