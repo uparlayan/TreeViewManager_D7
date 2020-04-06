@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2020.04.06 14:44:28.347,=P:\Dev\Delphi\ProjRIO\Unit1.pas</Transaction>
+    <Transaction>2020.04.06 14:45:09.101,P:\Dev\Delphi\ProjD7\TreeViewManager_D7\TreeViewManager_RIO.dproj=P:\Dev\Delphi\ProjRIO\Project1.dproj</Transaction>
+    <Transaction>2020.04.06 14:45:23.694,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Sources\Ana_.pas</Transaction>
+    <Transaction>2020.04.06 14:45:32.347,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Classes\Class_Interposer_MainMenu_.pas</Transaction>
+    <Transaction>2020.04.06 14:45:32.381,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Classes\Class_Interposer_TreeView_.pas</Transaction>
+  </Transactions>
+</BorlandProject>

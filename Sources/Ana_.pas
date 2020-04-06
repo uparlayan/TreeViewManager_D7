@@ -1,3 +1,6 @@
+/// <summary>
+///   TTreeView ve TMainMenu nesneleri için örnek bir proje çalýþmasýdýr.
+/// </summary>
 unit Ana_;
 
 interface
@@ -19,6 +22,9 @@ uses
   , Menus
   , Class_Interposer_TreeView_
   , Class_Interposer_MainMenu_
+  {$IFDEF VER330}
+  , System.ImageList
+  {$ENDIF}
   ;
 
 type
@@ -32,8 +38,22 @@ type
     Button1: TButton;
     StatusBar1: TStatusBar;
     MN: TMainMenu;
+    /// <summary>
+    ///   Örnek menülerin ve menü aðacýnýn oluþturulduðu, düzenlendiði ve hazýrlandýðý metodlarýn çaðýrýldýðý bölümdür.
+    ///   <list type="bullet">
+    ///     <item>
+    ///       TV, bir TTreeView nesnesini temsil eder.
+    ///     </item>
+    ///     <item>
+    ///       MN ise bir TMainMenu nesnesini temsil etmektedir.
+    ///     </item>
+    ///   </list>
+    /// </summary>
     procedure FormCreate(Sender: TObject);
     procedure TVChange(Sender: TObject; Node: TTreeNode);
+    /// <summary>
+    ///   Örnek olmasý amacýyla TMenuItem nesnelerinin çaðýrdýðý Notify Event'tir.
+    /// </summary>
     procedure Test(Sender: TObject);
   private
     { Private declarations }
@@ -84,7 +104,8 @@ begin
   TV.Duzenle;
   TV.IlkeGit;
 
-  MN.Sablon ( 'Fihrist                    {tag:100,default:true,shortcut:ctrl+n}                '#1
+  MN.Sablon ( 'Dosya                      {}                '#1
+            + 'Fihrist                    {default:true}    '#1
             + ' Adres Defteri             {image:-1,tag:101,checked:true,default:true,hint:naber} '#1
             + ' -                         {}                '#1
             + ' Rehber                    {image:-1,tag:102,checked:true} '#1

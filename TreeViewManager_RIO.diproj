@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project Version="1.0">
+  <Title>TreeViewManager_RIO</Title>
+  <Summary/>
+  <Author>Uğur PARLAYAN</Author>
+  <Email>uparlayan@potansif.com</Email>
+  <Copyright>Uğur PARLAYAN</Copyright>
+  <Comment>Bir TreeView veya bir MainMenu'nün elemanlarının kod bazlı ve dış kaynaklardan okunabilir şekilde nasıl düzenlenebileceğine örnek olması için hazırlanmıştır.</Comment>
+  <Language>1055</Language>
+  <Charset>1</Charset>
+  <HeaderHtml>&lt;%TopicTitle%&gt;</HeaderHtml>
+  <FooterHtml>Powered by &lt;a href="http://www.potansif.com/" target="_blank"&gt;Potansif Yazılım Hizmetleri, Uğur PARLAYAN&lt;/a&gt;</FooterHtml>
+  <CustomDefines/>
+  <ShowImplementationSection>true</ShowImplementationSection>
+  <ShowPrivateMembers>true</ShowPrivateMembers>
+  <ShowProtectedMembers>true</ShowProtectedMembers>
+  <ShowInheritedMembers>true</ShowInheritedMembers>
+  <ShowPropertyAccessors>true</ShowPropertyAccessors>
+  <FileNamePolicy>0</FileNamePolicy>
+  <CompilerVersion>24</CompilerVersion>
+  <TargetPlatform>0</TargetPlatform>
+  <Sources>
+    <Source>.\TreeViewManager_RIO.dpr</Source>
+  </Sources>
+  <Outputs>
+    <Output Type="HTML">
+      <Active>false</Active>
+      <OutputDirectory>Doc\Html</OutputDirectory>
+    </Output>
+    <Output Type="CHM">
+      <Active>true</Active>
+      <OutputFileName>Doc\CHM\TreeViewManager_RIO.chm</OutputFileName>
+    </Output>
+    <Output Type="MSHELP2">
+      <Active>false</Active>
+      <OutputFileName>Doc\MSHelp2\TreeViewManager_RIO.HxS</OutputFileName>
+      <Namespace>TreeViewManager_RIO</Namespace>
+      <TitleID>TreeViewManager_RIO_Library</TitleID>
+    </Output>
+    <Output Type="HelpAndManual">
+      <Active>false</Active>
+      <OutputFileName>Doc\HM\TreeViewManager_RIO.hmxp</OutputFileName>
+    </Output>
+  </Outputs>
+</Project>

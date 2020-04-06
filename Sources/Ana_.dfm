@@ -1,9 +1,9 @@
 object Ana: TAna
   Left = 468
   Top = 140
-  Width = 766
-  Height = 432
   Caption = 'Ana'
+  ClientHeight = 393
+  ClientWidth = 750
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

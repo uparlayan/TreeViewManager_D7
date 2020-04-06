@@ -37,7 +37,7 @@ type
       /// <summary>
       ///   TR: GetProps ile alýnan deðerleri önce bir listeye çevirir, sonra o listenin içinden istenen baþlýktaki deðeri çýktý olarak verir.
       /// </summary>
-      function GetValue(aItem, aString: String): String;
+      function GetValue(aItem, aString: String): String; overload;
       /// <summary>
       ///   TR: Belirtilen satýrdaki Soldan girinti miktarýný verir.
       /// </summary>
@@ -157,7 +157,7 @@ var
   Satir: String;
   I, L: Integer;
   _Tag, _Image: Integer;
-  _ShortCut: String;
+  _Caption, _ShortCut: String;
   _Checked, _Default: Boolean;
   LV0, LV1, LV2, LV3, LV4, LV5, LV6, LV7, LV8, LV9: TMenuItem;
 begin
@@ -176,13 +176,14 @@ begin
       Satir := FIcerik.Strings[I];
       if (Trim(Satir) <> '') then begin
           L := GetLevel(Satir);
+          _Caption  := GetBaslik(Satir);
           _Tag      := StrToIntDef(GetValue('tag', GetProps(Satir)), 0);
           _Image    := StrToIntDef(GetValue('image', GetProps(Satir)), -1);
           _ShortCut := GetValue('shortcut', GetProps(Satir));
           _Checked  := (GetValue('checked', GetProps(Satir)) = 'true' );
           _Default  := (GetValue('default', GetProps(Satir)) = 'true' );
           if (L = 0) then begin
-              LV0 := New( GetBaslik(Satir), _Tag, _Image, _ShortCut, _Default, _Checked);
+              LV0 := New( _Caption, _Tag, _Image, _ShortCut, _Default, _Checked);
               Items.Add(LV0);
           end else
           if (L = 1) then begin
@@ -351,7 +352,7 @@ function TMainMenu.GetBaslik(aString: string): String;
 var
   X, Y: Integer;
 begin
-  Result := aString;
+  Result := Trim(aString);
   X := pos(FAyracBasi, aString);
   Y := pos(FAyracSonu, aString);
   if (Y > X) and (X > 0) then Result := Trim(Copy(aString, 1, X - 1)); // {'nin sol tarafýný alýr.
