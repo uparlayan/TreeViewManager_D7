@@ -50,6 +50,9 @@ type
     ///   </list>
     /// </summary>
     procedure FormCreate(Sender: TObject);
+    /// <summary>
+    ///   Farklý bir TTreeView öðesi seçildiðinde bu olay tetiklenmiþ olur.
+    /// </summary>
     procedure TVChange(Sender: TObject; Node: TTreeNode);
     /// <summary>
     ///   Örnek olmasý amacýyla TMenuItem nesnelerinin çaðýrdýðý Notify Event'tir.
@@ -104,25 +107,26 @@ begin
   TV.Duzenle;
   TV.IlkeGit;
 
-  MN.Sablon ( 'Dosya                      {}                '#1
-            + 'Fihrist                    {default:true}    '#1
+  MN.Sablon ( 'Fihrist                    {default:true}    '#1
             + ' Adres Defteri             {image:-1,tag:101,checked:true,default:true,hint:naber} '#1
             + ' -                         {}                '#1
             + ' Rehber                    {image:-1,tag:102,checked:true} '#1
             + 'Müþteri Ýliþkileri Yönetini{}                '#1
             + ' Avukatlar                 {image:3,tag:201} '#1
-            + ' Müvekkiller               {image:4,tag:202,checked:true,default:true} '#1
+            + ' -                         {}                '#1
             + ' Vekaletnameler            {image:5,tag:203} '#1
+            + ' Müvekkiller               {image:4,tag:202,checked:true,default:true} '#1
             + 'Muhasebe                   {}                '#1
-            + ' Banka Hesaplarý           {image:6,tag:301} '#1
-            + ' Faturalar                 {}                '#1
+            + ' Faturalar                 {image:9}         '#1
             + '  Alýþ Faturalarý          {image:7,tag:302} '#1
             + '  Satýþ Faturalarý         {image:8,tag:303} '#1
-            + ' Serbest Meslek Makbuzlarý {}                '#1
+            + ' Serbest Meslek Makbuzlarý {image:9}         '#1
             + '  Alýþ SMM                 {image:9,tag:304} '#1
             + '  Satýþ SMM                {image:10,tag:305}'#1
-            + ' Günlük Banka Defteri      {image:11,tag:306}'#1
-            + ' Günlük Kasa Defteri       {image:12,tag:307}'#1
+            + ' Defterler                 {image:9}         '#1
+            + '  Günlük Banka Defteri     {image:11,tag:306}'#1
+            + '  Günlük Kasa Defteri      {image:12,tag:307}'#1
+            + ' Banka Hesaplarý           {image:6,tag:301} '#1
             + ' Hesap Planý               {image:13,tag:308}'#1
             + ' Yevmiye Defteri           {image:14,tag:309}'#1
             + 'Ürün ve Hizmetler          {}                '#1
