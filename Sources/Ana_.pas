@@ -108,9 +108,9 @@ begin
   TV.IlkeGit;
 
   MN.Sablon ( 'Fihrist                    {default:true}    '#1
-            + ' Adres Defteri             {image:-1,tag:101,checked:true,default:true,hint:naber} '#1
+            + ' Adres Defteri             {image:1,tag:101,shortcut:Ctrl+F} '#1
             + ' -                         {}                '#1
-            + ' Rehber                    {image:-1,tag:102,checked:true} '#1
+            + ' Rehber                    {image:2,tag:102} '#1
             + 'Müþteri Ýliþkileri Yönetini{}                '#1
             + ' Avukatlar                 {image:3,tag:201} '#1
             + ' -                         {}                '#1
@@ -129,6 +129,7 @@ begin
             + ' Banka Hesaplarý           {image:6,tag:301} '#1
             + ' Hesap Planý               {image:13,tag:308}'#1
             + ' Yevmiye Defteri           {image:14,tag:309}'#1
+            (*
             + 'Ürün ve Hizmetler          {}                '#1
             + 'Lojistik                   {}                '#1
             + 'Ýþletme                    {}                '#1
@@ -139,6 +140,7 @@ begin
             + 'Rapor ve Özetler           {}                '#1
             + 'Sistem Yönetimi            {}                '#1
             + 'Yapýsal Nesneler           {}                '#1
+            *)
             );
   MN.Ayarla(Test);
   MN.Yerlestir;

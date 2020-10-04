@@ -1,9 +1,9 @@
 object Ana: TAna
   Left = 468
   Top = 140
+  Width = 1063
+  Height = 624
   Caption = 'Ana'
-  ClientHeight = 393
-  ClientWidth = 750
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,13 +21,13 @@ object Ana: TAna
     Left = 265
     Top = 0
     Width = 6
-    Height = 372
+    Height = 564
   end
   object Panel2: TPanel
     Left = 0
     Top = 0
     Width = 265
-    Height = 372
+    Height = 564
     Align = alLeft
     BevelOuter = bvNone
     Color = clBtnShadow
@@ -37,7 +37,7 @@ object Ana: TAna
       Left = 0
       Top = 41
       Width = 265
-      Height = 331
+      Height = 523
       Align = alClient
       HotTrack = True
       Images = x16
@@ -48,9 +48,9 @@ object Ana: TAna
       OnChange = TVChange
     end
     object ed_Search: TEdit
-      Left = 6
-      Top = 46
-      Width = 253
+      Left = 58
+      Top = 114
+      Width = 113
       Height = 21
       Color = clInfoBk
       TabOrder = 1
@@ -75,8 +75,8 @@ object Ana: TAna
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 372
-    Width = 750
+    Top = 564
+    Width = 1047
     Height = 21
     Panels = <>
   end

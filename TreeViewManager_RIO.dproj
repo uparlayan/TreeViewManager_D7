@@ -109,6 +109,14 @@
         </DCCReference>
         <DCCReference Include="Classes\Class_Interposer_MainMenu_.pas"/>
         <DCCReference Include="Classes\Class_Interposer_TreeView_.pas"/>
+        <DCCReference Include="Forms\TemelForm_.pas">
+            <Form>TemelForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Forms\TemelDBForm_.pas">
+            <Form>TemelDBForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -135,7 +143,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\TreeViewManager_RIO.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Compiled\TreeViewManager_RIO.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>TreeViewManager_RIO.exe</RemoteName>
                         <Overwrite>true</Overwrite>

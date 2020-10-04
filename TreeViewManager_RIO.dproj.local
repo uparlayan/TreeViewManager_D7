@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2020.04.06 14:44:28.347,=P:\Dev\Delphi\ProjRIO\Unit1.pas</Transaction>
-    <Transaction>2020.04.06 14:45:09.101,P:\Dev\Delphi\ProjD7\TreeViewManager_D7\TreeViewManager_RIO.dproj=P:\Dev\Delphi\ProjRIO\Project1.dproj</Transaction>
-    <Transaction>2020.04.06 14:45:23.694,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Sources\Ana_.pas</Transaction>
-    <Transaction>2020.04.06 14:45:32.347,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Classes\Class_Interposer_MainMenu_.pas</Transaction>
-    <Transaction>2020.04.06 14:45:32.381,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Classes\Class_Interposer_TreeView_.pas</Transaction>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.208,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.375,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.051,P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Forms\TemelDBForm_.dfm=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.347,=P:\Dev\Delphi\ProjRIO\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.694,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Sources\Ana_.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.381,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Classes\Class_Interposer_TreeView_.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.101,P:\Dev\Delphi\ProjD7\TreeViewManager_D7\TreeViewManager_RIO.dproj=P:\Dev\Delphi\ProjRIO\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.051,P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Forms\TemelDBForm_.pas=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.668,P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Forms\TemelForm_.pas=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.668,P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Forms\TemelForm_.dfm=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.347,=P:\Dev\Delphi\ProjD7\TreeViewManager_D7\Classes\Class_Interposer_MainMenu_.pas</Transaction>
   </Transactions>
 </BorlandProject>
